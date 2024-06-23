@@ -16,14 +16,12 @@ class TodoController extends ApiController
     public function index()
     {
         // Get all todos for this user
-        $todos = Cache::remember('todos.user.' . auth()->id(), 180, function () {
-            return QueryBuilder::for(Todo::class)
+        $todos = QueryBuilder::for(Todo::class)
                 ->where('user_id', auth()->id())
                 ->allowedFilters(['title', 'description', 'status'])
                 ->allowedSorts(['title', 'status', 'created_at'])
                 ->orderBy('created_at', 'desc')
                 ->jsonPaginate();
-        });
 
         return response()->json($todos);
     }
@@ -63,7 +61,7 @@ class TodoController extends ApiController
     {
         // Validate id
         if (!is_numeric($id)) {
-            return $this->respondWithError('Invalid id', 'INVALID_ID', 400);
+            return $this->respondWithError('Invalid ID', 'INVALID_ID', 400);
         }
 
         // Get the todo
