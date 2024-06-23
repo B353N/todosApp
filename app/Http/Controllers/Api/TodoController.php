@@ -45,12 +45,9 @@ class TodoController extends ApiController
         }
 
         // Create a new todo
-        $todo = Todo::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $request->status,
-            'user_id' => auth()->id(),
-        ]);
+        $todo = new Todo($request->only('title', 'description', 'status'));
+        $todo->user_id = auth()->id();
+        $todo->save();
 
         return response()->json([
             'status' => 'success',
@@ -62,9 +59,8 @@ class TodoController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        $id = request()->get('id');
         // Validate id
         if (!is_numeric($id)) {
             return $this->respondWithError('Invalid id', 'INVALID_ID', 400);
