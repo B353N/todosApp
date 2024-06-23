@@ -47,6 +47,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Relationship between User and Todos
+     *
+     */
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
+    }
+
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return int|string
