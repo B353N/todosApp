@@ -169,6 +169,38 @@ This is an API-only application. You can use the following endpoints to interact
     ```
 
 In this example, the `filter[status]=pending` query parameter is used to only return todos with a status of "pending". Replace the example request and response with the actual request and response of your API.
+You can filter by `status`, `title` and `description` fields.
+Also you can sort by `status`, `title` and `created_at` fields.
+```bash
+# Sort by status
+GET /api/todos?sort=status
+
+# Sort by title
+GET /api/todos?sort=title
+
+# Sort by created_at
+GET /api/todos?sort=created_at
+
+# Filter by status
+GET /api/todos?filter[status]=pending
+
+# Filter by title
+GET /api/todos?filter[title]=Buy groceries
+
+# Filter by description
+GET /api/todos?filter[description]=Milk, eggs, bread
+```
+
+## Pagination
+
+You can paginate the results by using the `page` query parameter. The default number of items per page is 20. You can change this by using the `per_page` query parameter.
+Maximun number of items per page is 100.
+
+```bash
+# Get the first page of todos
+GET /api/todos?page[number]=1
+
+```
 
 Remember to replace the example requests and responses with the actual requests and responses of your API.
 
