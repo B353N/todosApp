@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Login error response.
-Route::get('/unathorized', function () {
+Route::get('/unauthorized', function () {
     return response()->json(['message' => 'Unauthorized'], 401);
 })->name('login');
 // Register a new user.
