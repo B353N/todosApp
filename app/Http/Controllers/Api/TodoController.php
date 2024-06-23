@@ -104,11 +104,6 @@ class TodoController extends ApiController
             return $this->respondWithError('Todo not found', 'NOT_FOUND', 404);
         }
 
-        // Check if todo belongs to the authenticated user
-        if ($todo->user_id !== auth()->id()) {
-            return $this->respondWithError('Unauthorized', 'UNAUTHORIZED', 401);
-        }
-
         // Update the todo
         $todo->update([
             'title' => $request->title,
@@ -140,11 +135,6 @@ class TodoController extends ApiController
         // Check if todo exists
         if (!$todo) {
             return $this->respondWithError('Todo not found', 'NOT_FOUND', 404);
-        }
-
-        // Check if todo belongs to the authenticated user
-        if ($todo->user_id !== auth()->id()) {
-            return $this->respondWithError('Unauthorized', 'UNAUTHORIZED', 401);
         }
 
         // Delete the todo
