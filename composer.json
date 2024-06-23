@@ -10,6 +10,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "php-open-source-saver/jwt-auth": "^2.4",
+        "spatie/laravel-json-api-paginate": "^1.14",
         "spatie/laravel-query-builder": "^6.0"
     },
     "require-dev": {

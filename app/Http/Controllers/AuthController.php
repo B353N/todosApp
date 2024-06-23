@@ -17,6 +17,7 @@ class AuthController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(Request $request){
+        // Validate the request
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
@@ -27,13 +28,17 @@ class AuthController extends ApiController
             return $this->respondWithError($e->errors(), 'VALIDATION_ERROR', 422);
         }
 
+        // Create a new user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Generate a token for the user
         $token = Auth::guard('api')->login($user);
+
+        // Return the response
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
@@ -45,8 +50,15 @@ class AuthController extends ApiController
         ]);
     }
 
+    /**
+     * Login a user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
+        // Validate the request
         try {
             $request->validate([
                 'email' => 'required|string|email',
@@ -56,13 +68,16 @@ class AuthController extends ApiController
             return $this->respondWithError($e->errors(), 'VALIDATION_ERROR', 422);
         }
 
+        // Attempt to log the user in
         $credentials = $request->only('email', 'password');
 
+        // Check if the user exists
         $token = Auth::guard('api')->attempt($credentials);
         if (!$token) {
             return $this->respondWithError('Unauthorized', 'error', 401);
         }
 
+        // Return the response
         $user = Auth::guard('api')->user();
         return response()->json([
             'status' => 'success',
@@ -75,18 +90,31 @@ class AuthController extends ApiController
 
     }
 
+    /**
+     * Logout a user.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout()
     {
+        // Log the user out
         Auth::guard('api')->logout();
+
+        // Return the response
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',
         ]);
     }
 
-
+    /**
+     * Refresh a user's token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function refresh()
     {
+        // Refresh the token
         try {
             return response()->json([
                 'status' => 'success',

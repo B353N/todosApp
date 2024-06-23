@@ -14,4 +14,14 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/logout', 'App\Http\Controllers\AuthController@logout');
     // Refresh a user's token.
     Route::post('/refresh', 'App\Http\Controllers\AuthController@refresh');
+    // Get all todos for this user.
+    Route::get('/todos', 'App\Http\Controllers\Api\TodoController@index');
+    // Create a new todo.
+    Route::post('/todos', 'App\Http\Controllers\Api\TodoController@store');
+    // Get a single todo.
+    Route::get('/todos/{id}', 'App\Http\Controllers\Api\TodoController@show');
+    // Update a todo.
+    Route::put('/todos/{id}', 'App\Http\Controllers\Api\TodoController@update');
+    // Delete a todo.
+    Route::delete('/todos/{id}', 'App\Http\Controllers\Api\TodoController@destroy');
 });
