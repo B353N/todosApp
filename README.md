@@ -21,19 +21,22 @@ Follow these steps to install and run the project:
     cd todosApp
     ```
 
-3. Install dependencies:
-    ```bash
-    composer install
-    ```
-
-4. Copy `.env.example` to `.env`:
+3. Copy `.env.example` to `.env`:
     ```bash
     cp .env.example .env
     ```
 
+4. Install dependencies:
+    ```bash
+    composer install
+    ```
+
+
+
 5. Generate key:
     ```bash
-    php artisan key:generate
+    ./vendor/bin/sail artisan key:generate
+   ./vendor/bin/sail artisan jwt:secret
     ```
 
 6. Run the app with sail:
